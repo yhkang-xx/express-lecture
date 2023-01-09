@@ -1,3 +1,9 @@
+# example files
+api.js
+crolling.js
+schedule.js
+package_org.json
+
 # Logs
 logs
 *.log
