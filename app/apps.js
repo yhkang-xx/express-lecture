@@ -13,6 +13,7 @@ const home = require("./src/routes/home");  // ./reoutes/home 폴더에서 js �
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
-app.use('/', home) // use -> 미들우ㅐ어를 등록해주는 메서드.
+app.use('/', home) // use -> 미들웨어를 등록해주는 메서드.
+app.use(express.static(`${__dirname}/src/public`)); // ${__dirname}는 apps.js가 있는 디렉토리
 
 module.exports = app;
