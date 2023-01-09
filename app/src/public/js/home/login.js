@@ -23,8 +23,14 @@ function login() {
         body: JSON.stringify(req),
     })
         .then((res) => res.json())
-        .then((res) => console.log(res));
-    // .catch((err) => console.log(err))
+        .then((res) => {
+            if (res.success) {
+                location.href = '/';
+            } else {
+                alert(res.message);
+            }
+        })
+        .catch((err) => console.error(new Error("로그인 중 에러 발생")));
     // .finally(() => console.log('done'));
 }
 
