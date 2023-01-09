@@ -117,7 +117,7 @@
     },
     "scripts": {
         "test": "node ./bin/www.js",
-        "start": "nodemon serve./bin/www.js"
+        "start": "nodemon ./bin/www.js"
     },
     "author": "misso.kang@gmail.com",
     "license": "MIT"
