@@ -12,6 +12,16 @@ function login() {
         id: id.value,
         password: password.value,
     }
+
     console.log(req);
+    console.log(JSON.stringify(req));
+
+    fetch('/login', {
+        method: 'POST', // post 하는 함수가 만들어져 있어야 함.
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(req)
+    });
 }
 
