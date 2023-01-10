@@ -1,14 +1,22 @@
 'use strict';
 
+const fs = require('fs').promises;
 class UserStorage {
-    static #users = {   // #은 이 변수를 은익(외부에서 참조가 안됨)하고 싶을 때 사용
-        id: ['misso0', '나개발', '강팀장'],
-        pword: ['1234', '1234', '123456'],
-        name: ['강양희', '나동수', '강성장'],
-    };
+    // 은닉화 함수, private => 최상위로 올려줄 것
+    static #getUserInfo(data, id) {
+        const users = JSON.parse(data);
+        const idx = users.id.indexOf(id);
+        const usersKeys = Object.keys(users); // => [id, pword, name]
+        const userInfo = usersKeys.reduce((newUser, info) => {
+            newUser[info] = users[info][idx];
+            return newUser;
+        }, {});
+        console.log(userInfo);
+        return userInfo;
+    }
 
     static getUsers(...fields) {
-        const users = this.#users;
+        // const users = this.#users;
         const newUsers = fields.reduce((newUsers, field) => {
             // console.log(newUsers, field);
             if (users.hasOwnProperty(field)) {
@@ -21,21 +29,19 @@ class UserStorage {
     }
 
     static getUserInfo(id) {
-        const users = this.#users;
-        const idx = users.id.indexOf(id);
-        const usersKeys = Object.keys(users); // => [id, pword, name]
-        const userInfo = usersKeys.reduce((newUser, info) => {
-            newUser[info] = users[info][idx];
-            return newUser;
-        }, {});
-        return userInfo;
+        // const users = this.#users;
+        return fs.readFile('./src/databases/users.json')
+            .then((data) => {
+                return this.#getUserInfo(data, id);
+            })
+            .catch(console.error);
     }
 
     static save(userInfo) {
-        const users = this.#users;
-        this.#users.id.push(userInfo.id);
-        this.#users.name.push(userInfo.name);
-        this.#users.pword.push(userInfo.pword);
+        // const users = this.#users;
+        // this.#users.id.push(userInfo.id);
+        // this.#users.name.push(userInfo.name);
+        // this.#users.pword.push(userInfo.pword);
         console.log(users);
         return { success: true };
     }
