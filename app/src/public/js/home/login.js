@@ -7,6 +7,8 @@ const loginBtn = document.querySelector('#button');
 loginBtn.addEventListener('click', login);
 
 function login() {
+    if (!id.value) return alert('아이디를 입력하십시요.');
+    if (!pword.value) return alert('비밀번호가 일치하지 않습니다.');
     const req = {
         id: id.value,
         pword: pword.value,
@@ -24,7 +26,8 @@ function login() {
             if (res.success) {
                 location.href = '/';
             } else {
-                alert(res.message);
+                if (res.err) return alert(res.err);
+                alert(res.msg);
             }
         })
         .catch((err) => console.error(new Error("로그인 중 에러 발생")));

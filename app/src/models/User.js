@@ -20,8 +20,8 @@ class User {
             }
             return { success: false, msg: '존재하지 않는 아이디입니다.' };
         }
-        catch (e) {
-            return { success: false, msg: e };
+        catch (err) {
+            return { success: false, err };
         }
     }
 
@@ -30,8 +30,8 @@ class User {
         try {
             const response = await UserStorage.save(client);
             return response;
-        } catch (e) {
-            console.error(e);
+        } catch (err) {
+            return { success: false, err };
         }
     }
 };
