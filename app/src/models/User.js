@@ -10,10 +10,10 @@ class User {
         const client = this.body;
         try {
             // await UserStorage.getUserInfo(client.id);
-            const { id, pword } = await UserStorage.getUserInfo(client.id);
+            const user = await UserStorage.getUserInfo(client.id);
 
-            if (id) {
-                if (id === client.id && pword === client.pword) {
+            if (user) {
+                if (user.id === client.id && user.pword === client.pword) {
                     return { success: true };
                 }
                 return { success: false, msg: '비밀번호가 틀렸습니다.' };
