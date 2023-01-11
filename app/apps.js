@@ -6,12 +6,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-dotenv.config();
+const morgan = require('morgan');
 
 const app = express();
-const cors = require('cors');   // 크롬에서 개발과정시 설정해야 할 수도...
+const cors = require('cors');   // 크롬에서 개발과정시 설정해야 브라우저와 문제안생김
+dotenv.config();
+
 // 라우팅
 const home = require("./src/routes/home");  // ./reoutes/home 폴더에서 js 파일을 읽어오라
+const accessLogStream = require("./src/config/log");
 
 // 앱 세팅
 app.set("views", "./src/views");
@@ -24,6 +27,13 @@ app.use(bodyParser.json()); // bodyParser.json 사용등록
 // extended: true
 app.use(bodyParser.urlencoded({ extended: true })); // bodyParser.urlencoded 사용등록
 app.use(cors());
+// app.use(morgan('tiny'));
+// app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+// app.use(morgan('dev', { stream: accessLogStream }));
+app.use(morgan('dev'));
+app.use(morgan('common', { stream: accessLogStream }));
+// app.use(morgan(':method :date[web]', { stream: accessLogStream }));
+
 // bodyParser와 순서바꾸면 안됨
 app.use('/', home) // use -> 미들웨어를 등록해주는 메서드. 
 
