@@ -5,6 +5,9 @@
 // 모듈
 const express = require('express');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+dotenv.config();
+
 const app = express();
 const cors = require('cors');   // 크롬에서 개발과정시 설정해야 할 수도...
 // 라우팅
